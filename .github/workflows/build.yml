@@ -35,24 +35,3 @@ jobs:
       with:
         name: 发票查重工具-Windows
         path: dist/发票查重工具.exe
-    
-    - name: Create Release
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-      uses: softprops/action-gh-release@v1
-      with:
-        files: dist/发票查重工具.exe
-        tag_name: v${{ github.run_number }}
-        name: 发票查重工具 v${{ github.run_number }}
-        body: |
-          自动构建的 Windows 可执行文件
-          
-          ## 使用方法
-          1. 下载 `发票查重工具.exe`
-          2. 双击运行
-          
-          ## 功能
-          - PDF 发票解析
-          - Excel 历史数据库查重
-          - 结果导出
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
