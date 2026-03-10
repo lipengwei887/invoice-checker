@@ -28,7 +28,11 @@ jobs:
     
     - name: Build executable
       run: |
-        pyinstaller --onefile --windowed --name "发票查重工具" main.py
+        pyinstaller invoice_checker.spec
+    
+    - name: List build output
+      run: |
+        dir dist
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4

@@ -5,9 +5,6 @@ PyInstaller 打包配置文件
 
 打包命令:
     pyinstaller invoice_checker.spec
-
-或一键打包:
-    pyinstaller --onefile --windowed --name "发票查重工具" main.py
 """
 
 import sys
@@ -42,6 +39,11 @@ a = Analysis(
         'tkinter.filedialog',
         'tkinter.messagebox',
         'tkinter.ttk',
+        # pandas 依赖
+        'pandas._libs.tslibs.base',
+        'pandas._libs.tslibs.np_datetime',
+        'pandas._libs.tslibs.nattype',
+        'pandas._libs.skiplist',
     ],
     hookspath=[],
     hooksconfig={},
@@ -52,17 +54,7 @@ a = Analysis(
         'numpy.random._examples',
         'scipy',
         'pytest',
-        'unittest',
         'pydoc',
-        'email',
-        'http',
-        'xml',
-        'xmlrpc',
-        'html',
-        'lib2to3',
-        'distutils',
-        'setuptools',
-        'pkg_resources',
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
@@ -73,7 +65,7 @@ a = Analysis(
 # 去除重复文件
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
-# 创建可执行文件
+# 创建单文件可执行文件
 exe = EXE(
     pyz,
     a.scripts,
@@ -95,16 +87,4 @@ exe = EXE(
     entitlements_file=None,
     # 图标（如果有的话）
     # icon='assets/icons/app.ico',
-)
-
-# 收集所有文件（用于单文件模式）
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='发票查重工具'
 )

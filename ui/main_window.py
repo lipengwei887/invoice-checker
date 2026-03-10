@@ -4,12 +4,20 @@
 """
 
 import sys
+import os
 from typing import Optional, List, Dict
 
 import customtkinter as ctk
 
-# 添加项目根目录到路径
-sys.path.insert(0, '/Users/lipengwei/Downloads/代码/qoder/invoice_checker')
+# 确保能正确导入项目模块（兼容打包后的环境）
+if getattr(sys, 'frozen', False):
+    # 打包后的环境
+    application_path = sys._MEIPASS
+else:
+    # 开发环境
+    application_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+sys.path.insert(0, application_path)
 
 from utils.config import (
     APP_NAME, 
