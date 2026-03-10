@@ -12,8 +12,12 @@ import os
 
 block_cipher = None
 
-# 项目根目录
-project_root = os.path.abspath(os.path.dirname(__file__))
+# 项目根目录（兼容 PyInstaller 执行环境）
+# 使用当前工作目录或 SPECPATH（PyInstaller 提供的变量）
+if 'SPECPATH' in dir():
+    project_root = SPECPATH
+else:
+    project_root = os.getcwd()
 
 # 分析依赖
 a = Analysis(
